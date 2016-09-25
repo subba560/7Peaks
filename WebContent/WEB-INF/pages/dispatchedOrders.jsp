@@ -22,7 +22,6 @@
     <link rel="stylesheet" href="assets/css/bootstrap.css">
     <link rel="stylesheet" href="assets/css/extra-pages.css">
     <link rel="stylesheet" href="assets/js/button/ladda/ladda.min.css">
-    <link href="assets/css/sweet-alert.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -32,32 +31,8 @@
     <link rel="shortcut icon" href="assets/ico/minus.png">
     <script type="text/javascript">
 		function deleteOrder(id){
-		swal({   title: "Confrim the Order?",   
-		text: "Click ok to dispatch the order",
-		type: "warning",  
-		showCancelButton: true,   
-		confirmButtonColor: "#DD6B55",   
-		confirmButtonText: "OK", 
-		closeOnConfirm: false }, function(){  
-		 swal("Success", "Your order is dispatched .", "success");
-		 var dat = {
-		 orderId : id
-		 };
-		 $.ajax({
-	     type : "POST",
-	   	 url : "/updateOrder",
-	   	 data : dat,
-	   	 crossDomain : true,
-	   	 datatype : 'json',
-	   	 success : function(response){
-	   	  $("#orders"+id).remove();
-	   	 },
-	     error : function(data){
-	    		alert("error")
-	    	 }
-	    })	
-	 });
-	}
+		$("#orders"+id).remove();
+		}
 		</script>
 </head>
 
@@ -348,9 +323,8 @@
     <script type="text/javascript" src="assets/js/app.js"></script>
     <script type="text/javascript" src="assets/js/load.js"></script>
     <script type="text/javascript" src="assets/js/main.js"></script>
-    <script type="text/javascript" src="assets/js/sweet-alert.min.js"></script>
+   
 		
 </body>
 
 </html>
-    

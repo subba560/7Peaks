@@ -16,5 +16,8 @@ public interface SupplierDAO {
 
 	public boolean placeOrder(Orders order);
 
-	public List<Orders> getAllOrders();
+	public List<Orders> getAllOrders(String status);
+	
+	public boolean updateOrder(int orderId);
+	
 }

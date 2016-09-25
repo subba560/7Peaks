@@ -13,4 +13,6 @@ public interface PageView {
 	String ORDERS = "orders";
 	
 	String ORDER_ITEMS = "orderItems";
+	
+	String DISPATCHED_ORDERS = "dipatchedOrders";
 }

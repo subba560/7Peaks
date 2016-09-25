@@ -23,6 +23,7 @@
     <link href="assets/js/switch/bootstrap-switch.css" rel="stylesheet">
     <link href="assets/js/validate/validate.css" rel="stylesheet">
     <link href="assets/js/idealform/css/jquery.idealforms.css" rel="stylesheet">
+    <link href="assets/css/sweet-alert.css" rel="stylesheet">
 	<style>
 		.selected{
 		    box-shadow:0px 12px 22px 1px #333;
@@ -490,7 +491,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyANEG-K1ZtpyJbyBiRf9jh1M7vk-6959hs&callback=initMap"
     async defer></script>
-    
+    <script type="text/javascript" src="assets/js/sweet-alert.min.js"></script>
 
 <!--  PLUGIN -->
     <script>
@@ -593,7 +594,7 @@
     }
     
     function placeOrder(){
-    alert("Order Placed");
+    swal("Succes!", "Order Placed", "success")
     $("#orderForm").ajaxSubmit({
     success: function(response){
     count = 0;

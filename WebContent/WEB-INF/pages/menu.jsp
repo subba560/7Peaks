@@ -159,6 +159,12 @@
                                 <span>Orders</span>
                             </a>
                         </li>
+                        <li>
+                            <a class="tooltip-tip ajax-load" href="/dispatchedOrders" title="Mail">
+                                <i class=icon-checkmark></i>
+                                <span>Dispatched Orders</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -171,10 +177,6 @@
     <!--  PAPER WRAP -->
     <div class="wrap-fluid">
         <div class="container-fluid paper-wrap bevel tlbr">
-
-
-
-
 
             <!-- CONTENT -->
             <!--TITLE -->

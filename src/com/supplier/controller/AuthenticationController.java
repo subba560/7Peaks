@@ -69,6 +69,12 @@ public class AuthenticationController {
 		}
 	  return "";
      } 
+	@RequestMapping(value = "/updateOrder", method = RequestMethod.POST)
+	public String updateOrder(ModelMap modelMap, Orders order,HttpSession session) {
+		boolean isOrderPlaced = supplierDAO.updateOrder(order.getOrderId());
+		
+	  return "";
+     } 
 	
 	
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)

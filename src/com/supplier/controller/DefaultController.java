@@ -45,7 +45,8 @@ public class DefaultController {
 
 	@RequestMapping(value = { "/orders" })
 	public String orders(ModelMap modelMap) {
-		List<Orders> orders =  supplierDAO.getAllOrders();
+		String status = "NEW";
+		List<Orders> orders =  supplierDAO.getAllOrders(status);
 		if(orders.size()>0){
 		modelMap.put("orders",orders);	
 		}else{
@@ -54,6 +55,17 @@ public class DefaultController {
 		return PageView.ORDERS;
 	}
 	
+	@RequestMapping(value = { "/dispatchedOrders" })
+	public String dispatchedOrders(ModelMap modelMap) {
+		String status = "DISP";
+		List<Orders> orders =  supplierDAO.getAllOrders(status);
+		if(orders.size()>0){
+		modelMap.put("orders",orders);	
+		}else{
+	    modelMap.put("Message","No orders");	
+		}
+		return PageView.ORDERS;
+	}
 	@RequestMapping(value = { "/orderItems" })
 	public String orderItems(ModelMap modelMap) {
 		return PageView.ORDER_ITEMS;

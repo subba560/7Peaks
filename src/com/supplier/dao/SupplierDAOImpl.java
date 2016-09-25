@@ -25,15 +25,17 @@ public class SupplierDAOImpl implements SupplierDAO {
 	
 	public static final String VALIDATE_SUP = "SELECT SUP_EMAIL,SUP_PASSWORD FROM SUPPLIER_DETAILS WHERE SUP_EMAIL=? AND SUP_PASSWORD=?";
 
-	public static final String PLACE_ORDER = "INSERT INTO ORDERS (ITEM_ORD_QTY,ORD_LOCATION,ITEM_ORD_ADLT_CNT,ITEM_ORD_CHLD_CNT,ITEM_ORD_PRIORITY,CONSUMER_ID,CREATED_DATE) VALUES (?,?,?,?,?,?,NOW())";
+	public static final String PLACE_ORDER = "INSERT INTO ORDERS (ITEM_ORD_QTY,ORD_LOCATION,ITEM_ORD_ADLT_CNT,ITEM_ORD_CHLD_CNT,ITEM_ORD_PRIORITY,CONSUMER_ID,STATUS,CREATED_DATE) VALUES (?,?,?,?,?,?,?,NOW())";
 	
 	public static final String GET_ORDER = "SELECT ORD_ID FROM ORDERS WHERE CONSUMER_ID = ?";
 	
 	public static final String ORDER_IT = "INSERT INTO OREDERD_ITEMS(ORDER_ID,ITEM_ID)VALUES(?,?)";
 	
-	public static final String GET_ALL_ORDER = "SELECT ORD_ID,ITEM_ORD_QTY,ORD_LOCATION,ITEM_ORD_ADLT_CNT,ITEM_ORD_CHLD_CNT,ITEM_ORD_PRIORITY FROM ORDERS";
+	public static final String GET_ALL_ORDER = "SELECT ORD_ID,ITEM_ORD_QTY,ORD_LOCATION,ITEM_ORD_ADLT_CNT,ITEM_ORD_CHLD_CNT,ITEM_ORD_PRIORITY FROM ORDERS WHERE STATUS=?";
 	
 	public static final String GET_ITEM_NAME = "SELECT ITEM_NAME FROM OREDERD_ITEMS OI JOIN ITEM_CAT O ON OI.ORDER_ID=? AND OI.ITEM_ID = O.ITEM_ID";
+	
+	public static final String UPDATE_ORDER = "UPDATE ORDERS SET STATUS=? WHERE ORD_ID=?";
 	
 	private JdbcTemplate jdbcTemplate;
 
@@ -113,7 +115,7 @@ public class SupplierDAOImpl implements SupplierDAO {
      Orders ord = null;
      boolean isCreated = false;
 		int i = jdbcTemplate.update(PLACE_ORDER,order.getAdultCount()+order.getChildrenCount(),order.getOrderLocation(),
-				order.getAdultCount(),order.getChildrenCount(),order.getPriority(),consumerId);
+				order.getAdultCount(),order.getChildrenCount(),order.getPriority(),consumerId,"NEW");
 		if (i > 0) {
 			List<Map<String, Object>> retrievedDetails = jdbcTemplate.queryForList(GET_ORDER,consumerId);
 			if (!retrievedDetails.isEmpty()) {
@@ -152,11 +154,11 @@ public class SupplierDAOImpl implements SupplierDAO {
 	}
 
 	@Override
-	public List<Orders> getAllOrders() {
+	public List<Orders> getAllOrders(String status) {
 		Orders orders = null;
 		Orders order1 = null;
 		List<Orders> orders2 =  new ArrayList<Orders>();
-		List<Map<String, Object>> retrievedDetails = jdbcTemplate.queryForList(GET_ALL_ORDER);
+		List<Map<String, Object>> retrievedDetails = jdbcTemplate.queryForList(GET_ALL_ORDER,status);
        
         
 		if (!retrievedDetails.isEmpty()) {
@@ -178,6 +180,16 @@ public class SupplierDAOImpl implements SupplierDAO {
 		}
 
 		return orders2;
+	}
+
+	@Override
+	public boolean updateOrder(int orderId) {
+		boolean isUpdated = false;
+		int j = jdbcTemplate.update(UPDATE_ORDER,"DISP",orderId);
+		if(j>0){
+			isUpdated=true;	
+		}
+		return isUpdated;
 	}
 
 	
